@@ -2,20 +2,20 @@
 import re
 
 
-def validate(new_array):
-    if new_array is not None:
-        len_array = len(new_array)
+def validate(my_array):
+    if my_array is not None:
+        len_array = len(my_array)
         # print(len_array)
 
         middlename = ''
         lastname = ''
-        firstname = new_array[0]
+        firstname = my_array[0]
         if len_array == 2:
-            lastname = new_array[1]
+            lastname = my_array[1]
             
         if len_array == 3:
-            middlename = new_array[1]
-            lastname = new_array[2]
+            middlename = my_array[1]
+            lastname = my_array[2]
     else:
         print("Veuillez entrer au moins un caractère")
     d = {"firstname": firstname, "middlename": middlename, "lastname": lastname}
@@ -31,12 +31,12 @@ def validate_only_string(my_var):
     
     # si ma var est vide, on return false
     if len(my_var) == 0 or not len(my_var):
-        print("it's fucking empty")
+        print("c'est vide")
         return False
     
     # si ma var est un int, return false
     if type(my_var) == int:
-        print("it's an integer")
+        print("c'est un nombre")
         return False
 
     # verif que chaque char de ma var est un char valide

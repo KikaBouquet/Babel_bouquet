@@ -1,6 +1,6 @@
-def verifImput(new_input):
-    if new_input is not None:
-        names = new_input.split()
+def verifInput(my_input):
+    if my_input is not None:
+        names = my_input.split()
         len_input = len(names)
 
         if len_input == 2:
@@ -18,4 +18,4 @@ def verifImput(new_input):
 # Premier traitement
 
 # fullname = input("Entrez votre nom puis votre prenom")
-# names = verifImput(fullname)
+# names = verifInput(fullname)
