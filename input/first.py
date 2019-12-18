@@ -15,8 +15,6 @@ def verifImput(new_input):
         print("Le champs est vide")
     return names
 
-# hello
-
 # Premier traitement
 
 # fullname = input("Entrez votre nom puis votre prenom")
