@@ -18,10 +18,6 @@ def verify_only_number(my_var):
             return False
     return True
 
-"""
-def verify_valid_year_for4char(my_year):
-    while 1900 > my_year and my_year < year_now:
-"""
 
 # on demande l'année de naissance et on vérifie si le nombre de char est de 2 ou 4 seulement
 year_str = ask_for_year()
