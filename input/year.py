@@ -2,56 +2,57 @@ import datetime
 
 
 def ask_for_year():
+    """
+    demande d'entrer l'année de naissance 
+    """
     my_year = input("Quel est votre année de naissance ?")
     lenght_year = len(my_year)
-    while lenght_year < 2 or lenght_year == 3 or lenght_year > 4:
+    if lenght_year < 2 or lenght_year == 3 or lenght_year > 4:
         print("entrée incorrecte")
-        year_str = input("Quel est votre année de naissance ?")
-        lenght_year = len(year_str)
+        return None
     return my_year
 
 
 def verify_only_number(my_var):
+    """
+    verifie que les chars sont bien des int, retourne un bool
+    """
     autorized_char = ["0","1","2","3","4","5","6","7","8","9"]
     for char in my_var:
         if autorized_char.__contains__(char) is False:
+            print("Vous avez entré un caractère non autorisé")
             return False
     return True
 
 
-# on demande l'année de naissance et on vérifie si le nombre de char est de 2 ou 4 seulement
-year_str = ask_for_year()
+def days_passed(my_year):
+    """
+    calcul du nombre de jours entre l'année en cours et l'année entrée
+    """
+    try:
+        my_year_int = int(my_year)
+    except ValueError:
+        my_year_int = None
+        print("les caractères entrés sont invalides")
 
-# on vérifie si les char entrés sont bien des chiffres
-isOk = verify_only_number(year_str)
+    if my_year_int is not None:
+        date_time_obj = datetime.datetime(my_year_int,1,1)
+        date_now = datetime.datetime.now()
 
-# tant que ce ne sont pas des chiffres, on redemande une date de 2 ou 4 char ne contenant que des chiffres
-while isOk is False:
-    print("vous avre entrez des caractère non-autorisés")
-    print("merci de saisir à nouveau votre date de naissance")
-    year_str = ask_for_year()
-    isOk = verify_only_number(year_str)
-    
-# conversion de year en int
-year = int(year_str)
-year_now = datetime.date.today().year
-
-
-if year > 999:
-    # verification nombre compris entre 1900 et l'année en cours
-    if 1900 > year and year < year_now:
-        print("vous avez entré une date invalide")
-elif year < 100:
-    # ajout des 2 premiers chiffres de l'année
-    if year >= 0 and year <= year_now:
-        year += 2000
+        to_return = date_now - date_time_obj
+        return to_return
     else:
-        year += 1900   
-else:
-    print("nous avons rencontré une erreur")
+        return None
 
-print(year)
 
-"""
-correction
-"""
+my_bool = True
+
+while my_bool is True:
+    result = ask_for_year()
+    if result is not None:
+        isOk = verify_only_number(result)
+        if isOk is True:
+            print("année entrée : " + result)
+            number_of_days = days_passed(result)
+            if number_of_days is not None:
+                print("Nombre de jours passés " + str(number_of_days))
