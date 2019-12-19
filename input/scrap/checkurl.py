@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+from bs4 import BeautifulSoup
 
 dataset = []
 F_URL = "url"
@@ -30,15 +31,40 @@ def displayurl(r, is_verbose=False):
 
 
 def write_to_dict(r, is_verbose=False):
-    text = r.text[:1000]
+    text = r.text[:5000]
     title = search_title(text)
     dict = {F_URL: r.url, F_STATUS: r.status_code, F_TITLE: title, F_HTML: text}
     global dataset
     dataset.append(dict)
 
 
+def search_title_by_bs4(text):
+    """
+    le retour du texte acceptera les accents et les char spéciaux
+    utilisation de beautifulSoup4
+    """
+    soup = BeautifulSoup(text, "lxml")
+    
+    # a revoir
+    d1 = soup.find_all('h1')
+    d2 = soup.find_all('h2')
+    if d1 != "":
+        for h1 in d1:
+            print(f"-->{h1}")
+    if d2 != "":
+        for h2 in d2:
+            print(f"---->{h2}")
+    # a revoir
+
+    return soup.title.string
+
+
 def search_title(text):
-    to_return = begin = end = 0
+    return search_title_by_bs4(text)
+    
+    # ne pas utiliser cette suite de code
+
+    """ to_return = begin = end = 0
     begin = text.find('<title>')
     if begin != -1:
         begin += len("<title>")
@@ -49,6 +75,7 @@ def search_title(text):
     print(f"le title est {begin}, {end}, {to_return}")
 
     return to_return
+    """
 
 
 # pas la peine de faire un test unitaire puisqu'on a deja la gestion des
