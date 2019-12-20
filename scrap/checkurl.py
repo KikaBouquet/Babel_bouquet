@@ -8,9 +8,14 @@ F_URL = "url"
 F_STATUS = "statut_code"
 F_HTML = "content"
 F_TITLE = "title"
+F_H1 = "h1"
+F_H2 = "h2"
 
 
 def get(url):
+    """
+    récupère le requests.get d'un url
+    """
     user_agent_text = ""  # mettre le user-agent correspondant à son navigateur
     headerdict = {"User-Agent": user_agent_text}
     r = requests.get(url, headers=headerdict)
@@ -19,6 +24,9 @@ def get(url):
 
 
 def displayurl(r, is_verbose=False):
+    """
+    affichage 
+    """
     print(r)
     print(f"il y a {len(r.text)} octets")
     # print(r.text)
@@ -31,18 +39,59 @@ def displayurl(r, is_verbose=False):
 
 
 def write_to_dict(r, is_verbose=False):
-    text = r.text[:5000]
-    title = search_title(text)
-    dict = {F_URL: r.url, F_STATUS: r.status_code, F_TITLE: title, F_HTML: text}
+    """
+    récupère le texte, le statut et les <meta> d'une url
+    retourne un dict
+    """
+    text = r.text
+    meta_dict = search_meta_by_bs4(text)
+    meta_dict.update({F_URL: r.url, F_STATUS: r.status_code})
     global dataset
-    dataset.append(dict)
+    dataset.append(meta_dict)
 
 
+def search_meta_by_bs4(text):
+    """
+    trouve <title> et les <meta> dont les proproétés sont og:title, og:description, og:image
+    retourne tout dans un dict
+    """
+    soup = BeautifulSoup(text, "lxml")
+    title = soup.title.string
+    image_og = soup.find("meta", property="og:image")
+    title_og = soup.find("meta", property="og:title")
+    description_og = soup.find("meta", property="og:description")
+    title_og = soup.find("meta", property="og:title")
+    meta_dict = dict()
+    if title:
+        meta_dict[F_TITLE] = title
+    if title_og:
+        meta_dict["title_og"] = title_og["content"]
+    if description_og:
+        meta_dict["description_og"] = description_og["content"]
+    if image_og:
+        meta_dict["image_og"] = image_og["content"]
+
+    # fin de matinée
+    d = soup.find_all("h1")
+    if d:
+        meta_dict[F_H1] = []
+        for h1 in d:
+            meta_dict[F_H1].append(h1.text)
+            print(f"--> h1 {h1.text}")
+    d = soup.find_all("h2")
+    if d:
+        meta_dict[F_H2] = []
+        for h2 in d:
+            meta_dict[F_H2].append(h2.text)
+            print(f"---> h2 {h2.text}")
+
+    # fin du matinée
+            
+    return meta_dict
+
+
+"""
 def search_title_by_bs4(text):
-    """
-    le retour du texte acceptera les accents et les char spéciaux
-    utilisation de beautifulSoup4
-    """
     soup = BeautifulSoup(text, "lxml")
     
     # a revoir
@@ -55,16 +104,12 @@ def search_title_by_bs4(text):
         for h2 in d2:
             print(f"---->{h2}")
     # a revoir
-
     return soup.title.string
+"""
 
-
-def search_title(text):
-    return search_title_by_bs4(text)
-    
-    # ne pas utiliser cette suite de code
-
-    """ to_return = begin = end = 0
+""" 
+def search_title(text):  
+    to_return = begin = end = 0
     begin = text.find('<title>')
     if begin != -1:
         begin += len("<title>")
@@ -75,13 +120,16 @@ def search_title(text):
     print(f"le title est {begin}, {end}, {to_return}")
 
     return to_return
-    """
+"""
 
 
 # pas la peine de faire un test unitaire puisqu'on a deja la gestion des
 # erreurs avec le try/except
 def get_urls(arglist, is_verbose=False):
-
+    """
+    pour un liste d'url
+    exécute display url et write_to_dict si les urls sont ok
+    """
     for a in arglist:
         try:
             r = get(a)
@@ -105,9 +153,10 @@ if __name__ == "__main__":
     print(filedir)
     basedir = (os.path.dirname(filedir))
     print(basedir)
-
+    dataset_dir = {"count": len(dataset), "dataset": dataset}
     filename = basedir + "/checkurl.json"
 
     # with permet d'éviter de faire close("test.json"... etc)
     with open(filename, "w", encoding="utf8") as f:
-        json.dump(dataset, f)  # prend un objet python et un handle de fichier et écrit dedant
+        json.dump(dataset_dir, f)  # prend un objet python et un handle de fichier et écrit dedant
+
