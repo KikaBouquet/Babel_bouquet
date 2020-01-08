@@ -1,4 +1,5 @@
 from django.db import models
+from .utils import get_century
 
 
 class Author(models.Model):
@@ -34,13 +35,17 @@ class Author(models.Model):
             self.nom = f"{self.first_name} {self.last_name}"
         else:
             self.nom = self.last_name
+
+        if self.date_birth:
+            year = self.date_birth.year
+            self.century_birth = get_century(year)  
+                    
     
-    # def save()
-
-
 class Dewey(models.Model):
     name = models.CharField(max_length=30, blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
+    bg_color = models.CharField(max_length=7, blank=True, null=True)
+    text_color = models.CharField(max_length=7, blank=True, null=True)
 
     def __str__(self):
         return f"{self.number} - {self.name}"
@@ -62,6 +67,7 @@ class Publication(models.Model):
     author = models.ForeignKey(Author, models.PROTECT, null=True)
     reference = models.CharField(max_length=61, blank=True, null=True, editable=False)
     dewey_number = models.ForeignKey(Dewey, models.PROTECT, null=True)
+    isbn = models.CharField(max_length=15, blank=True)
 
     date_publication = models.DateField(blank=True, null=True)
     nb_tracks_pages = models.IntegerField(blank=True, null=True)
@@ -76,7 +82,7 @@ class Publication(models.Model):
             return f"{self.name}"
 
     def clean(self):
-        #Création de la référence pour chaque publication
+        # Création de la référence pour chaque publication
         # pk = primary key
         if self.dewey_number and self.author:
             self.reference = f"{self.dewey_number.number}.{self.author.last_name[:3].upper()}.{self.pk}"
