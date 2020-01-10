@@ -1,0 +1,22 @@
+<div class="col-7 p-2">
+    <h1>Publications</h1>
+    <hr />
+
+
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom de l'ouvrage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in publication_object_list %}
+            <tr>
+                <th scope="row">{{p.reference}}</th>
+                <td>{{p.name}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

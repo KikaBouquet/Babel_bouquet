@@ -1,0 +1,15 @@
+.dewey_color{
+    max-width: 50px;
+    min-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+footer{
+    margin-top: 2rem;
+    padding: 2rem;
+    background-color: #343a40;
+    color: white;
+}

@@ -1,0 +1,13 @@
+<div class="list-group col-3 p-2">
+    <div href="#" class="list-group-item list-group-item-action" style="background-color: #343a40; color: white;">Dewey
+    </div>
+    {% for d in dewey_object_list %}
+    <a href="#" class="list-group-item list-group-item-action">
+        <div class="row p-2">
+            {{d.colored_number}}
+            <div class="p-2">{{d.name}}</div>
+        </div>
+    </a>
+    {% endfor %}
+
+</div>

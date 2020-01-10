@@ -1,1 +1,67 @@
-{"count": 3, "dataset": [{"title": "Google", "h2": ["Account Options"], "url": "https://www.google.fr/", "statut_code": 200}, {"title": "Le Monde.fr - Actualit\u00e9s et Infos en France et dans le monde", "title_og": "Le Monde - Toute l&#039;actualit\u00e9 en continu", "description_og": "International, Economie, Environnement \u2026 La r\u00e9f\u00e9rence, partout, tout le temps.", "image_og": "https://asset.lemde.fr/medias/img/social-network/default.png", "h1": ["France T\u00e9l\u00e9com\u00a0: \u00ab\u00a0Ils ne mouraient pas tous, mais tous \u00e9taient frapp\u00e9s\u00a0\u00bb "], "url": "https://www.lemonde.fr/", "statut_code": 200}, {"title": "Mettez \u00e0 jour votre navigateur | Facebook", "h2": ["Mettre \u00e0 jour votre navigateur"], "url": "https://www.facebook.com/unsupportedbrowser", "statut_code": 200}]}
+{
+    "count": 7,
+    "dataset": [
+        {
+            "status_code": 200,
+            "description": "Pour ne rien rater de l\u2019actu, rendez-vous sur 20minutes.fr : politique, sport, \u00e9conomie\u2026 tous les sujets sont sur 20 Minutes, retrouvez le journal en pdf",
+            "image": "",
+            "url": "https://www.20minutes.fr/",
+            "title": "20 Minutes, information en continu, actualit\u00e9s, politique, sport\u2026"
+        },
+        {
+            "status_code": 200,
+            "description": "International, Economie, Environnement \u2026 La r\u00e9f\u00e9rence, partout, tout le temps.",
+            "image": "https://asset.lemde.fr/medias/img/social-network/default.png",
+            "url": "https://www.lemonde.fr",
+            "title": "Le Monde - Toute l&#039;actualit\u00e9 en continu"
+        },
+        {
+            "status_code": 200,
+            "description": "",
+            "image": "",
+            "url": "",
+            "title": "YouTube"
+        },
+        {
+            "status_code": 200,
+            "description": "Une : toute l'\u0080\u0099actualit\u00e9 en direct, soyez inform\u00e9 de toute l'\u0080\u0099info en continu, en images et en vid\u00e9os, dans votre r\u00e9gion, en France et dans le monde. Partagez et commentez en temps r\u00e9el, \u00c3\u00a0 tout moment de la journ\u00e9e",
+            "image": "https://www.ouest-france.fr/sites/all/themes/front/images/logos/logo-of-150x150.png",
+            "url": "https://www.ouest-france.fr/",
+            "title": "Ouest-France : toute l'actualit\u00e9 en direct, l'info en continu en France, dans les r\u00e9gions et dans le monde"
+        },
+        {
+            "status_code": 200,
+            "description": "The official home of the Python Programming Language",
+            "image": "https://www.python.org/static/opengraph-icon-200x200.png",
+            "url": "https://www.python.org/",
+            "title": "Welcome to Python.org"
+        },
+        {
+            "title": "Google",
+            "h2": [
+                "Account Options"
+            ],
+            "url": "https://www.google.fr/",
+            "statut_code": 200
+        },
+        {
+            "title": "Le Monde.fr - Actualit\u00e9s et Infos en France et dans le monde",
+            "title_og": "Le Monde - Toute l&#039;actualit\u00e9 en continu",
+            "description_og": "International, Economie, Environnement \u2026 La r\u00e9f\u00e9rence, partout, tout le temps.",
+            "image_og": "https://asset.lemde.fr/medias/img/social-network/default.png",
+            "h1": [
+                " Article se d\u00e9roulant en direct Gr\u00e8ve contre la r\u00e9forme des retraites : \u00ab Certains ont fait trop de sacrifices financiers pour reculer maintenant \u00bb "
+            ],
+            "url": "https://www.lemonde.fr/",
+            "statut_code": 200
+        },
+        {
+            "title": "Mettez \u00e0 jour votre navigateur | Facebook",
+            "h2": [
+                "Mettre \u00e0 jour votre navigateur"
+            ],
+            "url": "https://www.facebook.com/unsupportedbrowser",
+            "statut_code": 200
+        }
+    ]
+}

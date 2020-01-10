@@ -143,9 +143,43 @@ def get_urls(arglist, is_verbose=False):
             write_to_dict(r, is_verbose)
 
 
+"""
+A AJOUTER
+def search_meta(text):
+    ''' recherche les éléments méta: Title, description, url, url_image dans un fichier html avec Beautifulsoup4:
+     renvoie un dictionnaire: dict_meta  '''
+    dict_meta = {}
+    ''' problème d'encodage é ou è 
+    https://outils-javascript.aliasdmc.fr/encodage-caracteres-accentues/encode-caractere-00E9-html-css-js-autre.html
+     '''
+    text = text.replace("Ã©", "é")
+    text = text.replace("â", "'")
+    soup = BeautifulSoup(text, "lxml")
+    tit = soup.find("meta", property="og:title")
+    if not tit:
+        title = soup.title.string
+    else:
+        title = tit["content"]
+
+    descr = soup.find("meta", property="og:description")
+    description = descr["content"] if descr else ""
+
+    ur = soup.find("meta", property="og:url")
+    url = ur["content"] if ur else ""
+
+    im = soup.find("meta", property="og:image")
+    image = im["content"] if im else ""
+
+    dict_meta = {F_DESCRIPTION: description,
+                 F_IMAGE: image, F_URL: url, F_TITLE: title}
+    return dict_meta
+    """
+
+
 if __name__ == "__main__":
 
-    urls = ["https://google.fr", "https://lemonde.fr", "https://facebook.com"]
+    urls = ["https://google.fr", "https://midilibre.fr", "https://thetimes.co.uk", "https://www.20minutes.fr/", "https://www.lemonde.fr", "https://www.youtube.com/?hl=fr&gl=FR",
+                    "https://www.ouest-france.fr", "https://www.python.org/"]
     get_urls(urls, False)
     print(len(dataset))
     print(__file__)
@@ -159,4 +193,4 @@ if __name__ == "__main__":
     # with permet d'éviter de faire close("test.json"... etc)
     with open(filename, "w", encoding="utf8") as f:
         json.dump(dataset_dir, f)  # prend un objet python et un handle de fichier et écrit dedant
-
+        print(f"{filename} : SUCCESS")
