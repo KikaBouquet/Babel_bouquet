@@ -14,6 +14,9 @@ beautifulsoup4 = "*"
 lxml = "*"
 django = "*"
 pillow = "*"
+heroku = "*"
+django-heroku = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.8"

@@ -50,7 +50,7 @@ def about(request):
     return render(request, "catalog/about.html", context=context_page)
 
 
-def publications(request):
+def publication(request):
     
     record = Dewey.objects.get(number='100')
     record_list = Dewey.objects.all()
