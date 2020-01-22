@@ -17,6 +17,8 @@ pillow = "*"
 heroku = "*"
 django-heroku = "*"
 gunicorn = "*"
+dj-database-url = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.8"

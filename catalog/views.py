@@ -51,10 +51,12 @@ def about(request):
 
 
 def publication(request):
-    
-    record = Dewey.objects.get(number='100')
-    record_list = Dewey.objects.all()
-    publication_list = Publication.objects.all()
+    try:
+        record = Dewey.objects.get(number='100')
+        record_list = Dewey.objects.all()
+        publication_list = Publication.objects.all()
+    except:
+        record = record_list = publication_list = None
 
     context_local = {
         "jumbotron_title": "Toutes les publications",

@@ -11,20 +11,33 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from distutils.util import strtobool
+from dotenv import load_dotenv
+
 import django_heroku
+import dj_database_url
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# charge les variables dans le fichier .env du projet
+env_path = BASE_DIR + '\.env'
+load_dotenv(dotenv_path=env_path, verbose=True)
+print(f"BASE_DIR = {BASE_DIR}, {env_path}")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "*l(mpzrq@t%^_88we$xkk_04cs_o7e7)5s=)(exmhtb&4)6e8)"
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = strtobool(os.getenv("DEBUG_DJANGO", "0"))
+
+if DEBUG:
+    print("MODE DEBUG !!")
 
 ALLOWED_HOSTS = []
 
@@ -76,12 +89,14 @@ WSGI_APPLICATION = "babel.wsgi.application"
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    }
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    # }
+    "default": dj_database_url.config(),
 }
 
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -117,9 +132,10 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
-STATIC_ROOT = os.path.join(BASE_DIR, "files_static")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 STATIC_MEDIA = os.path.join(BASE_DIR, "files_media")
 print(f"STATIC_ROOT = {STATIC_ROOT}")
 print(f"STATIC_MEDIA = {STATIC_MEDIA}")
 
 django_heroku.settings(locals())
+
