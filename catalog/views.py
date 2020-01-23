@@ -52,7 +52,7 @@ def about(request):
 
 def publication(request):
     try:
-        record = Dewey.objects.get(number='100')
+        # record = Dewey.objects.get(number='100')
         record_list = Dewey.objects.all()
         publication_list = Publication.objects.all()
     except:
@@ -66,7 +66,7 @@ def publication(request):
     context_page = {
         "global": CONTEXT_GLOBAL, 
         "local": context_local, 
-        'dewey_object': record, 
+        #'dewey_object': record, 
         'dewey_object_list': record_list, 
         'publication_object_list': publication_list,
     }

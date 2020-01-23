@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "catalog",
+    "import_export",
 ]
 
 MIDDLEWARE = [
@@ -88,15 +89,19 @@ WSGI_APPLICATION = "babel.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-    # }
-    "default": dj_database_url.config(),
-}
-
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
+USE_LOCAL_DB = strtobool(os.getenv('USE_LOCAL_DB', '0'))
+if USE_LOCAL_DB:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        }
+    }
+else:
+    DATABASES = {
+        "default": dj_database_url.config(),
+    }
+    DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -137,5 +142,6 @@ STATIC_MEDIA = os.path.join(BASE_DIR, "files_media")
 print(f"STATIC_ROOT = {STATIC_ROOT}")
 print(f"STATIC_MEDIA = {STATIC_MEDIA}")
 
-django_heroku.settings(locals())
-
+if not USE_LOCAL_DB:
+    django_heroku.settings(locals())
+    
